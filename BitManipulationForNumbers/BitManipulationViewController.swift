@@ -17,7 +17,7 @@ class BitManipulationViewController: UIViewController {
     @IBOutlet weak var binaryXText: UITextField!
     @IBOutlet weak var binaryYText: UITextField!
     @IBOutlet weak var binaryResultText: UITextField!
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,8 +33,7 @@ class BitManipulationViewController: UIViewController {
         
         // validate input and make sure it's numeric
         guard
-            String(self.xTextField.text!.unicodeScalars.filter{CharacterSet.letters.contains($0) || $0 == " "}).count == 0 ,
-            String(self.yTextField.text!.unicodeScalars.filter{CharacterSet.letters.contains($0) || $0 == " "}).count == 0
+            self.xTextField.text!.count > 0, self.yTextField.text!.count > 0
             else {return }
         
         let x = Int(self.xTextField.text!) ?? 0
@@ -61,8 +60,11 @@ class BitManipulationViewController: UIViewController {
 }
 
 extension BitManipulationViewController : UITextFieldDelegate {
+    
+    // make sure only dicimal input is allowed
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if String(string.unicodeScalars.filter{CharacterSet.decimalDigits.contains($0) || $0 == " "}).count > 0 {
+        if String(string.unicodeScalars.filter{CharacterSet.letters.contains($0) || $0 == " "}).count > 0 {
             return false
         }
         return true
